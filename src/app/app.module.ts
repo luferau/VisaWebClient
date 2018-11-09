@@ -1,24 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { VisaResourcesComponent } from './visa-resources/visa-resources.component';
-import { VisaResourceComponent } from './visa-resources/visa-resource/visa-resource.component';
+import { VisaResourceDetailComponent } from './visa-resources/visa-resource-detail/visa-resource-detail.component';
 import { VisaResourcesListComponent } from './visa-resources/visa-resources-list/visa-resources-list.component';
+import { AppRoutingModule } from './app-routing.module';
+import { VisaHandlerComponent } from './visa-resources/visa-handler/visa-handler.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VisaResourcesComponent,
-    VisaResourceComponent,
-    VisaResourcesListComponent
+    VisaResourceDetailComponent,
+    VisaResourcesListComponent,
+    VisaHandlerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

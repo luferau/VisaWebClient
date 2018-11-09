@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisaResourceComponent } from './visa-resource.component';
+import { VisaHandlerComponent } from './visa-handler.component';
 
-describe('VisaResourceComponent', () => {
-  let component: VisaResourceComponent;
-  let fixture: ComponentFixture<VisaResourceComponent>;
+describe('VisaHandlerComponent', () => {
+  let component: VisaHandlerComponent;
+  let fixture: ComponentFixture<VisaHandlerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VisaResourceComponent ]
+      declarations: [ VisaHandlerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisaResourceComponent);
+    fixture = TestBed.createComponent(VisaHandlerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

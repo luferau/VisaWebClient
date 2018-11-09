@@ -1,9 +1,11 @@
+import { HardwareInterfaceType } from './HardwareInterfaceType';
+
 export class VisaResource {
-    Alias: string;
-    ExpandedUnaliasedName: string;
-    InterfaceNumber: number;
-    InterfaceType: number;
-    OriginalResourceName: string;
-    ResourceClass: string;
-    DetectedAt: string;
+    alias: string;
+    expandedUnaliasedName: string;
+    interfaceNumber: number;
+    interfaceType: HardwareInterfaceType;
+    originalResourceName: string;
+    resourceClass: string;
+    detectedAt: string;
 }

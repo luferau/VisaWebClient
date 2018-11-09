@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VisaResourceService } from './shared/visa-resource.service';
+import { VisaResourceService } from '../services/visa-resource.service';
 
 @Component({
   selector: 'app-visa-resources',
@@ -12,6 +12,7 @@ export class VisaResourcesComponent implements OnInit {
   constructor(private visaResourceService: VisaResourceService) { }
 
   ngOnInit() {
+    // It's a good place to put initialization logic
   }
 
 }
