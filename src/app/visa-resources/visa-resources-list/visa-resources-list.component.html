@@ -1,15 +1,17 @@
 <h4>VISA Resources Available</h4>
-<form class="emp-form" #visaResourcesAvailableForm="ngForm">
-    <div class="form-row">
-      <div class="row">
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let resource of visaResources" (click)="onSelect(resource)">
-          <span class="badge badge-secondary">{{resource.alias}}</span> {{resource.expandedUnaliasedName}}
-        </li>
-      </ul>
-      </div>
-    </div>
-    <div class="form-row">
-      <button type="button" class="btn btn-info" (click)="getVisaResources()">Refresh</button>
-    </div>
-  </form>
+<div class="container">
+  <div class="list-group" *ngFor="let resource of visaResources" (click)="onSelect(resource)">
+    <button type="button" 
+      class="btn btn-light text-left" 
+      [class.active]="resource === visaResourceSelected">
+        <span class="badge badge-secondary">{{resource.alias}}</span> {{resource.expandedUnaliasedName}}
+        <span class="badge badge-success badge-pill float-right" *ngIf="resource.opened">Open</span>
+    </button>
+  </div>
+  <div>
+      <button type="button" class="btn btn-info" (click)="getAllVisaResources()">Refresh</button>
+  </div>
+</div>
+
+
+

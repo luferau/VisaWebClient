@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import { VisaResource } from '../visa-resources/shared/visa-resource.model';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { RequestResult } from '../visa-resources/shared/request-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +16,28 @@ export class VisaResourceService {
 
   constructor(private http: HttpClient) { }
 
-  getVisaResources(): Observable<VisaResource[]> {
-    return this.http.get<VisaResource[]>(this.API_URL).pipe(tap(data => console.log(data)));
+  getAllVisaResources(): Observable<VisaResource[]> {
+    return this.http.get<VisaResource[]>(`${this.API_URL}/getAll`).pipe(tap(data => console.log(data)));
   }
 
-  openVisaResource(visaResourceName: string): Observable<any> {
+  open(visaResourceName: string): Observable<RequestResult> {
+    const open_url = `${this.API_URL}/open`;
+    const post_data: any = { ResourceName: visaResourceName };
+    return this.http.post<RequestResult>(open_url, post_data);
+  }
 
+  close(visaResourceName: string): Observable<RequestResult> {
+    const close_url = `${this.API_URL}/close`;
+    const post_data: any = { ResourceName: visaResourceName };
+    return this.http.post<RequestResult>(close_url, post_data);
+  }
+
+  write(visaResourceName: string, message: string): Observable<RequestResult> {
+    const write_url = `${this.API_URL}/write`;
+    const post_data: any = {
+       ResourceName: visaResourceName,
+       Message: message
+      };
+    return this.http.post<RequestResult>(write_url, post_data);
   }
 }

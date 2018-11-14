@@ -19,7 +19,7 @@ export class VisaResourcesListComponent implements OnInit {
 
   ngOnInit() {
     // Get VISA resources
-    this.getVisaResources();
+    this.getAllVisaResources();
   }
 
   onSelect(resource: VisaResource) {
@@ -27,8 +27,8 @@ export class VisaResourcesListComponent implements OnInit {
     this.visaResourceSelectedService.changeVisaResourceSelection(resource);
   }
 
-  getVisaResources(): void {
-    this.visaResourceService.getVisaResources().subscribe((data: any) => {
+  getAllVisaResources(): void {
+    this.visaResourceService.getAllVisaResources().subscribe((data: any) => {
       this.visaResources = data;
     });
   }

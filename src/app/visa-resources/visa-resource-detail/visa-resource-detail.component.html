@@ -1,9 +1,26 @@
-<div *ngIf="visaResource">
-    <div><span>alias</span>{{visaResource.alias}}</div>
-    <div><span>expandedUnaliasedName</span>{{visaResource.expandedUnaliasedName}}</div>
-    <div><span>interfaceNumber</span>{{visaResource.interfaceNumber}}</div>
-    <div><span>interfaceType</span>{{visaResource.interfaceType}}</div>
-    <div><span>originalResourceName</span>{{visaResource.originalResourceName}}</div>
-    <div><span>resourceClass</span>{{visaResource.resourceClass}}</div>
-    <div><span>detectedAt</span>{{visaResource.detectedAt}}</div>
-</div>
+<div class="container" *ngIf="visaResource"> 
+    <div class="row">
+        <div class="col-md font-weight-bold">Alias</div>
+        <div class="col-md">{{visaResource.alias}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md font-weight-bold">Expanded Unaliased Name</div>
+        <div class="col-md">{{visaResource.expandedUnaliasedName}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md font-weight-bold">Interface Number</div>
+        <div class="col-md">{{visaResource.interfaceNumber}}</div>
+    </div>    
+    <div class="row">
+        <div class="col-md font-weight-bold">Interface Type</div>
+        <div class="col-md">{{visaResource.interfaceType}}</div>
+    </div> 
+    <div class="row">
+        <div class="col-md font-weight-bold">Original Resource Name</div>
+        <div class="col-md">{{visaResource.originalResourceName}}</div>
+    </div>    
+    <div class="row">
+        <div class="col-md font-weight-bold">Resource Class</div>
+        <div class="col-md">{{visaResource.resourceClass}}</div>
+    </div>
+</div>          

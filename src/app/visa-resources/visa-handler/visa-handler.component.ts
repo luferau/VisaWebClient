@@ -12,7 +12,7 @@ import { VisaResourceSelectedService } from '../../services/visa-resource-select
 export class VisaHandlerComponent implements OnInit {
 
   visaResource: VisaResource;
-  command: string;
+  message: string;
 
   isResourceOpen: boolean;
 
@@ -20,7 +20,7 @@ export class VisaHandlerComponent implements OnInit {
               private visaResourceSelectedService: VisaResourceSelectedService) { }
 
   ngOnInit() {
-    this.command = undefined;
+    this.message = undefined;
     this.isResourceOpen = true;
 
     // Subscribe for visaResourceSelected changed
@@ -28,16 +28,38 @@ export class VisaHandlerComponent implements OnInit {
   }
 
   onOpen() {
-    console.log(`onOpen ${this.visaResource.alias}`);
-    this.visaResourceService.openVisaResource(this.visaResource.alias);
+    this.visaResourceService.open(this.visaResource.originalResourceName).
+        subscribe(data => {
+          this.visaResource.opened = data.success;
+          if (data.success) {
+            console.log('Success: ' + data.description);
+          } else {
+            console.log('Failed: ' + data.description);
+          }
+        });
   }
 
   onClose() {
-    console.log('onClose');
+    this.visaResourceService.close(this.visaResource.originalResourceName).
+        subscribe(data => {
+          if (data.success) {
+            this.visaResource.opened = false;
+            console.log('Success: ' + data.description);
+          } else {
+            console.log('Failed: ' + data.description);
+          }
+        });
   }
 
   onWrite() {
-    console.log(`onWrite ${this.command}`);
+    this.visaResourceService.write(this.visaResource.originalResourceName, this.message).
+        subscribe(data => {
+          if (data.success) {
+            console.log('Success: ' + data.description);
+          } else {
+            console.log('Failed: ' + data.description);
+          }
+        });
   }
 
   onQuery() {

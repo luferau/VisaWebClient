@@ -7,5 +7,5 @@ export class VisaResource {
     interfaceType: HardwareInterfaceType;
     originalResourceName: string;
     resourceClass: string;
-    detectedAt: string;
+    opened: boolean;
 }
