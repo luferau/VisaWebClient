@@ -14,14 +14,19 @@
     </div>
   </div>
   <div class="form-row">
-      <div class="form-group col-md-4">
-        <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onWrite()">Write</button>
-      </div>
-      <div class="form-group col-md-4">
-          <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onQuery()">Query</button>
-      </div>
-      <div class="form-group col-md-4">
-          <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onRead()">Read</button>
-      </div>
-    </div>  
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onWrite()">Write</button>
+    </div>
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onQuery()">Query</button>
+    </div>
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onRead()">Read</button>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-block" [disabled]="!isResourceOpen" (click)="onClear()">Clear</button>
+    </div>
+  </div> 
 </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 import { VisaResource } from '../shared/visa-resource.model';
 import { VisaResourceService } from '../../services/visa-resource.service';
@@ -17,7 +18,8 @@ export class VisaHandlerComponent implements OnInit {
   isResourceOpen: boolean;
 
   constructor(private visaResourceService: VisaResourceService,
-              private visaResourceSelectedService: VisaResourceSelectedService) { }
+              private visaResourceSelectedService: VisaResourceSelectedService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.message = undefined;
@@ -29,44 +31,63 @@ export class VisaHandlerComponent implements OnInit {
 
   onOpen() {
     this.visaResourceService.open(this.visaResource.originalResourceName).
-        subscribe(data => {
-          this.visaResource.opened = data.success;
-          if (data.success) {
-            console.log('Success: ' + data.description);
+        subscribe(result => {
+          this.visaResource.opened = result.success;
+          if (result.success) {
+            this.toastr.success('Success: ' + result.description, 'VISA Web Api');
           } else {
-            console.log('Failed: ' + data.description);
+            this.toastr.error('Failed: ' + result.description, 'VISA Web Api');
           }
         });
   }
 
   onClose() {
     this.visaResourceService.close(this.visaResource.originalResourceName).
-        subscribe(data => {
-          if (data.success) {
+        subscribe(result => {
+          if (result.success) {
             this.visaResource.opened = false;
-            console.log('Success: ' + data.description);
+            console.log('Success: ' + result.description);
           } else {
-            console.log('Failed: ' + data.description);
+            console.log('Failed: ' + result.description);
           }
         });
   }
 
   onWrite() {
     this.visaResourceService.write(this.visaResource.originalResourceName, this.message).
-        subscribe(data => {
-          if (data.success) {
-            console.log('Success: ' + data.description);
+        subscribe(result => {
+          if (result.success) {
+            console.log('Success: ' + result.description);
           } else {
-            console.log('Failed: ' + data.description);
+            console.log('Failed: ' + result.description);
           }
         });
   }
 
-  onQuery() {
-    console.log('onQuery');
+  onRead() {
+    this.visaResourceService.read(this.visaResource.originalResourceName).
+    subscribe(result => {
+      if (result.success) {
+        console.log(`Success: ${result.data}`);
+      } else {
+        console.log('Failed: ' + result.description);
+      }
+    });
   }
 
-  onRead() {
-    console.log('onRead');
+  onQuery() {
+    this.onWrite();
+    this.onRead();
+  }
+
+  onClear() {
+    this.visaResourceService.clear(this.visaResource.originalResourceName).
+        subscribe(result => {
+          if (result.success) {
+            console.log('Success: ' + result.description);
+          } else {
+            console.log('Failed: ' + result.description);
+          }
+        });
   }
 }

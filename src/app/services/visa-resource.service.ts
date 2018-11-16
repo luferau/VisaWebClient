@@ -40,4 +40,16 @@ export class VisaResourceService {
       };
     return this.http.post<RequestResult>(write_url, post_data);
   }
+
+  read(visaResourceName: string): Observable<RequestResult> {
+    const read_url = `${this.API_URL}/readasync`;
+    const post_data: any = { ResourceName: visaResourceName };
+    return this.http.post<RequestResult>(read_url, post_data);
+  }
+
+  clear(visaResourceName: string): Observable<RequestResult> {
+    const clear_url = `${this.API_URL}/clear`;
+    const post_data: any = { ResourceName: visaResourceName };
+    return this.http.post<RequestResult>(clear_url, post_data);
+  }
 }

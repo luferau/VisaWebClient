@@ -9,6 +9,8 @@ import { VisaResourceDetailComponent } from './visa-resources/visa-resource-deta
 import { VisaResourcesListComponent } from './visa-resources/visa-resources-list/visa-resources-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { VisaHandlerComponent } from './visa-resources/visa-handler/visa-handler.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { VisaHandlerComponent } from './visa-resources/visa-handler/visa-handler
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule, // Toastr required animations module
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
