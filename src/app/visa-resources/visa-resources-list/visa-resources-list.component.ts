@@ -28,7 +28,7 @@ export class VisaResourcesListComponent implements OnInit {
   }
 
   getAllVisaResources(): void {
-    this.visaResourceService.getAllVisaResources().subscribe((data: any) => {
+    this.visaResourceService.findAllVisaResources().subscribe((data: any) => {
       this.visaResources = data;
     });
   }

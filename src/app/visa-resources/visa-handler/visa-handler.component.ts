@@ -13,64 +13,80 @@ import { VisaResourceSelectedService } from '../../services/visa-resource-select
 export class VisaHandlerComponent implements OnInit {
 
   visaResource: VisaResource;
-  message: string;
+  messageInput: string;
 
   isResourceOpen: boolean;
+
+  nChar: string;
+  rChar: string;
 
   constructor(private visaResourceService: VisaResourceService,
               private visaResourceSelectedService: VisaResourceSelectedService,
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.message = undefined;
+    this.messageInput = undefined;
     this.isResourceOpen = true;
+
+    this.nChar = String.fromCharCode(0x0A);
+    this.rChar = String.fromCharCode(0x0D);
 
     // Subscribe for visaResourceSelected changed
     this.visaResourceSelectedService.visaResourceSelected.subscribe(visa => this.visaResource = visa);
   }
 
+  showToastr(message: string, success: boolean) {
+    if (success) {
+      this.toastr.success(`Success<br/>${message}`, 'VISA Web Api', {enableHtml: true, closeButton: true});
+    } else {
+      this.toastr.error(`Failed<br/>'${message}`, 'VISA Web Api', {enableHtml: true, closeButton: true});
+    }
+  }
+
+  replaceLFCRChars(message: string) {
+    return this.messageInput.replace('\n', this.nChar).replace('\r', this.rChar);
+  }
+
   onOpen() {
     this.visaResourceService.open(this.visaResource.originalResourceName).
         subscribe(result => {
+          console.log(result);
           this.visaResource.opened = result.success;
-          if (result.success) {
-            this.toastr.success('Success: ' + result.description, 'VISA Web Api');
-          } else {
-            this.toastr.error('Failed: ' + result.description, 'VISA Web Api');
-          }
+          this.showToastr(result.description, result.success);
         });
   }
 
   onClose() {
     this.visaResourceService.close(this.visaResource.originalResourceName).
         subscribe(result => {
+          console.log(result);
+          this.showToastr(result.description, result.success);
           if (result.success) {
             this.visaResource.opened = false;
-            console.log('Success: ' + result.description);
-          } else {
-            console.log('Failed: ' + result.description);
           }
         });
   }
 
   onWrite() {
-    this.visaResourceService.write(this.visaResource.originalResourceName, this.message).
+    this.visaResourceService.write(this.visaResource.originalResourceName, this.replaceLFCRChars(this.messageInput)).
         subscribe(result => {
-          if (result.success) {
-            console.log('Success: ' + result.description);
-          } else {
-            console.log('Failed: ' + result.description);
-          }
+          console.log(result);
+          this.showToastr(`Write operation:<br/>
+                           ${result.description}`, result.success);
         });
   }
 
   onRead() {
     this.visaResourceService.read(this.visaResource.originalResourceName).
     subscribe(result => {
+      console.log(result);
       if (result.success) {
-        console.log(`Success: ${result.data}`);
+        this.showToastr(`Read operation:<br/>
+                         Return count: ${result.data.length}<br/>
+                         ${result.data}`, result.success);
       } else {
-        console.log('Failed: ' + result.description);
+        this.showToastr(`Read operation:<br/>
+                         Failed:  ${result.description}`, result.success);
       }
     });
   }
@@ -83,11 +99,8 @@ export class VisaHandlerComponent implements OnInit {
   onClear() {
     this.visaResourceService.clear(this.visaResource.originalResourceName).
         subscribe(result => {
-          if (result.success) {
-            console.log('Success: ' + result.description);
-          } else {
-            console.log('Failed: ' + result.description);
-          }
+          console.log(result);
+          this.showToastr(result.description, result.success);
         });
   }
 }

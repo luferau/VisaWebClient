@@ -16,19 +16,21 @@ export class VisaResourceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllVisaResources(): Observable<VisaResource[]> {
-    return this.http.get<VisaResource[]>(`${this.API_URL}/getAll`).pipe(tap(data => console.log(data)));
+  findAllVisaResources(): Observable<VisaResource[]> {
+    return this.http.get<VisaResource[]>(`${this.API_URL}/findall`).pipe(tap(data => console.log(data)));
   }
 
   open(visaResourceName: string): Observable<RequestResult> {
     const open_url = `${this.API_URL}/open`;
     const post_data: any = { ResourceName: visaResourceName };
+    console.log(post_data);
     return this.http.post<RequestResult>(open_url, post_data);
   }
 
   close(visaResourceName: string): Observable<RequestResult> {
     const close_url = `${this.API_URL}/close`;
     const post_data: any = { ResourceName: visaResourceName };
+    console.log(post_data);
     return this.http.post<RequestResult>(close_url, post_data);
   }
 
@@ -38,18 +40,21 @@ export class VisaResourceService {
        ResourceName: visaResourceName,
        Message: message
       };
+      console.log(post_data);
     return this.http.post<RequestResult>(write_url, post_data);
   }
 
   read(visaResourceName: string): Observable<RequestResult> {
-    const read_url = `${this.API_URL}/readasync`;
+    const read_url = `${this.API_URL}/read`;
     const post_data: any = { ResourceName: visaResourceName };
+    console.log(post_data);
     return this.http.post<RequestResult>(read_url, post_data);
   }
 
   clear(visaResourceName: string): Observable<RequestResult> {
     const clear_url = `${this.API_URL}/clear`;
     const post_data: any = { ResourceName: visaResourceName };
+    console.log(post_data);
     return this.http.post<RequestResult>(clear_url, post_data);
   }
 }
